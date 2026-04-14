@@ -1,12 +1,16 @@
-import AppProviders from '@/app/providers/AppProviders'
-import AppRouter from '@/app/router/AppRouter'
+import { Outlet } from 'react-router-dom';
+import Navbar from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer';
+import '../styles/global.scss';
 
-function App() {
+const App = () => {
   return (
-    <AppProviders>
-      <AppRouter />
-    </AppProviders>
-  )
-}
+    <div className="app-shell">
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </div>
+  );
+};
 
-export default App
+export default App;
