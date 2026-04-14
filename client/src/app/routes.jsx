@@ -8,6 +8,7 @@ import JobBoardPage from '../pages/JobBoardPage';
 import LoginPage from '../pages/LoginPage';
 import PortalDashboardPage from '../pages/PortalDashboardPage';
 import NotFoundPage from '../pages/NotFoundPage';
+import ProtectedRoute from '../components/ui/ProtectedRoute'
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,14 @@ const router = createBrowserRouter([
       { path: 'contact', element: <ContactPage /> },
       { path: 'jobs', element: <JobBoardPage /> },
       { path: 'portal/login', element: <LoginPage /> },
-      { path: 'portal/dashboard', element: <PortalDashboardPage /> }
+{
+  path: 'portal/dashboard',
+  element: (
+    <ProtectedRoute>
+      <PortalDashboardPage />
+    </ProtectedRoute>
+  )
+}
     ]
   }
 ]);
