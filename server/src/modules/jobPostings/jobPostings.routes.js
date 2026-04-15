@@ -1,12 +1,11 @@
 import { Router } from 'express'
+import authMiddleware from '../../middleware/authMiddleware.js'
+import { createJob, getJobs } from './jobPostings.controller.js'
+import { validateCreateJob } from './jobPostings.validation.js'
 
 const router = Router()
 
-router.get('/', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Job postings route active.',
-  })
-})
+router.post('/', authMiddleware, validateCreateJob, createJob)
+router.get('/', authMiddleware, getJobs)
 
 export default router

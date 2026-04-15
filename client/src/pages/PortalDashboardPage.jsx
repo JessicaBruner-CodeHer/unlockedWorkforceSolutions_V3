@@ -26,22 +26,22 @@ const PortalDashboardPage = () => {
       try {
         const token = localStorage.getItem('token')
 
-        const res = await fetch('http://localhost:5000/api/dashboard', {
+        const response = await fetch('http://localhost:5000/api/dashboard', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
 
-        const data = await res.json()
+        const data = await response.json()
 
-        if (!res.ok) {
-          throw new Error(data.message)
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed to load dashboard')
         }
 
         setStats({
-          employers: data.data.employers || 0,
-          jobs: data.data.jobs || 0,
-          events: data.data.events || 0,
+          employers: data?.data?.employers || 0,
+          jobs: data?.data?.jobs || 0,
+          events: data?.data?.events || 0,
         })
       } catch (err) {
         console.error('Dashboard error:', err.message)
@@ -66,6 +66,7 @@ const PortalDashboardPage = () => {
 
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1rem' }}>
             <button onClick={() => goTo('/portal/jobs')}>Create Job Posting</button>
+            <button onClick={() => goTo('/portal/jobs/list')}>View Job Postings</button>
             <button onClick={() => goTo('/portal/employers')}>View Employers</button>
             <button onClick={() => goTo('/portal/documents')}>Manage Documents</button>
             <button onClick={() => goTo('/portal/events')}>View Events</button>
